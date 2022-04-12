@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Write an algorithm to sort an array of integer</title>
+  </head>
+  <body>
+    <script>
+      function sortArr(arr, n) {
+        let l = 0;
+        let r = n - 1;
+        let k = 0;
+        while (l < r) {
+          while (arr[l] % 2 != 0) {
+            l++;
+            k++;
+          }
+          while (arr[r] % 2 == 0 && l < r) r--;
+          if (l < r) {
+            let temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+          }
+        }
+        let odd = new Array(k);
+        for (let i = 0; i < k; i++) {
+          odd[i] = arr[i];
+        }
+        let even = new Array(n - k);
+        for (let i = 0; i < n - k; i++) {
+          even[i] = arr[k + i];
+        }
+
+        odd.sort(function (a, b) {
+          return a - b;
+        });
+
+        even.sort(function (a, b) {
+          return b - a;
+        });
+
+        return odd.concat(even);
+      }
+
+      let arr = [-1, 5, 2, -9, 9, 7, 2, 64, 3];
+      let res = sortArr(arr, arr.length);
+      for (let i = 0; i < res.length; i++) {
+        document.write(res[i] + " ");
+      }
+    </script>
+  </body>
+</html>
